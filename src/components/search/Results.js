@@ -22,12 +22,27 @@ class App extends Component {
 
     componentDidMount() {
 
-        const data = {
-            "SPOONACULAR_API_KEY": "4657697774ac42dcbe50bf95b6c4fa02",
-        }
         let query = this.props.query;
         const queryNumber = 10;
-        const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
+        const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
+        fetch(
+            url)
+            .then((res) => res.json())
+            .then((json) => {
+                this.setState({
+                    items: json,
+                    DataisLoaded: true
+
+                });
+            }).catch(err => {
+            console.error(err);
+        });
+    }
+    componentDidUpdate() {
+
+        let query = this.props.query;
+        const queryNumber = 10;
+        const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
         fetch(
             url)
             .then((res) => res.json())
