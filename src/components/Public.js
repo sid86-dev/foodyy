@@ -15,7 +15,7 @@ function Public(props) {
     const query = searchParams.get("query")
 
     const data = {
-        "SPOONACULAR_API_KEY": "4657697774ac42dcbe50bf95b6c4fa02",
+        "SPOONACULAR_API_KEY": "8caf40bd938d42a3a4a4042be2b8d397",
     }
     const homeComponent = <Home banner={props.banner} bg1={props.bg1}/>;
     const ResultComponent = <Results query={query} data={data}/>;
