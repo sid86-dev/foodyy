@@ -8,6 +8,7 @@ import {
     Routes,
     useSearchParams,
 } from "react-router-dom";
+import Details from "./search/Details";
 
 function Public(props) {
     // get url params
@@ -26,6 +27,8 @@ function Public(props) {
         <div className="publicContent">
             <Header Appname="Foodyy" logo={props.logo} signInMethods={props.signInMethods}/>
             <Routes>
+                <Route path="/item-details/:id" element={<Details/>}/>
+                <Route/>
                 <Route path="/" element={homeComponent}></Route>
                 <Route path="/search" element={ResultComponent}>
                 </Route>

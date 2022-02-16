@@ -24,9 +24,10 @@ class App extends Component {
 
         let query = this.props.query;
         const queryNumber = 10;
+        let url_filter = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
         const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
         fetch(
-            url)
+            url_filter)
             .then((res) => res.json())
             .then((json) => {
                 this.setState({
@@ -37,14 +38,35 @@ class App extends Component {
             }).catch(err => {
             console.error(err);
         });
+
+        const searchbyCategory = (query) => {
+            const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
+            fetch(
+                url)
+                .then((res) => res.json())
+                .then((json) => {
+                    this.setState({
+                        items: json,
+                        DataisLoaded: true
+
+                    });
+                }).catch(err => {
+                console.error(err);
+            });
+
+        }
+
+
     }
+
     componentDidUpdate() {
 
         let query = this.props.query;
         const queryNumber = 10;
+        let url_filter = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
         const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
         fetch(
-            url)
+            url_filter)
             .then((res) => res.json())
             .then((json) => {
                 this.setState({
@@ -53,7 +75,25 @@ class App extends Component {
 
                 });
             })
-    }
+
+
+        const searchbyCategory = (query) => {
+            const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
+            fetch(
+                url)
+                .then((res) => res.json())
+                .then((json) => {
+                    this.setState({
+                        items: json,
+                        DataisLoaded: true
+
+                    });
+                }).catch(err => {
+                console.error(err);
+            });
+
+        }
+    };
 
     render() {
 
@@ -158,7 +198,7 @@ class App extends Component {
                     </div>
                     <div className="row my-3 ">
                         <div className="col-md-6">
-                            <p className="search-results-count">About {items.totalResults} results</p></div>
+                            <p className="search-results-count">About {items.meals != null?items.meals.length : 0} results</p></div>
                         <div className="col-md-6">
                             <button className="btn btn-dark " style={{float: 'right'}} type="button"
                                     data-bs-toggle="offcanvas"
@@ -170,9 +210,12 @@ class App extends Component {
                     <div className="container">
                         <div className="card-group vgr-cards">
                             {
-                                items.results.map((item) => (
-                                    <ResultItem key={item.id} item={item}/>
-                                ))
+                                items.meals != null?
+                                items.meals.map((item) => (
+                                    <ResultItem key={item.idMeal} item={item}/>
+                                )):
+
+                                    <h1 className="my-5 mx-auto" style={{height:'36vh'}}>No result found</h1>
                             }
 
                         </div>

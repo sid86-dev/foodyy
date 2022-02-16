@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer(props) {
     return (
-        <footer className="bg-dark text-center text-white sticky-bottom">
+        <footer className="footer bg-dark text-center text-white sticky-bottom mt-5">
             {/*Grid container */}
             <div className="container p-4 pb-0">
                  {/*Section: Form */}
