@@ -1,45 +1,27 @@
 import React,{useState, useEffect} from 'react';
 import {
-    Route,
-    Routes,
     Link
 } from "react-router-dom";
-import Details from "./Details";
+// import{v4 as uuidv4} from "uuid";
 
 function ResultItem(props) {
-    const  item = props.item;
-    const [itemDetails, setItemDetails] = useState('');
-
-    let fn = (text, count)=>{
-        return text.slice(0, count) + (text.length > count ? " . . ." : "");
-    }
-
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${item.idMeal}`;
-    fetch(
-        url)
-        .then((res) => res.json())
-        .then((json) => {
-            setItemDetails(json);
-            const itemTitle = json.meals[0].strInstructions;
-            let title = fn(itemTitle,300)
-            const cardText = document.getElementById(item.idMeal);
-            cardText.innerText = title;
-        }).catch(err => {
-        console.error(err)});
-
-
-
+    var recipe = props.item.recipe;
     return (
 
         <div className="card my-4 shadow-sm">
             <div className="card-img-body">
-                <img className="card-img" src={item.strMealThumb} alt="Card image cap" />
+                <img className="card-img" src={recipe.image} alt="Card image cap" />
             </div>
             <div className="card-body">
-                <h4 className="card-title">{item.strMeal}</h4>
-                <p className="card-text" id={item.idMeal}></p>
+                <h4 className="card-title">{recipe.label}</h4>
+                <p className="card-text" >
+                   This is body  This is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is body
+                    This is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is body
+                    This is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is body
+                    This is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is bodyThis is body
+                </p>
 
-               <Link to={`/item-details/${item.idMeal}`}>
+               <Link to={`/item-details/${recipe.label}`}>
                 <button type="button" id="animatebutton" className="custom-btn btn-warning btn-icon-text animatebutton">
                      More <span className="fs-5 mx-1"><i className="bi bi-arrow-right-circle"></i></span>
                 </button></Link>

@@ -16,16 +16,17 @@ function Public(props) {
     const query = searchParams.get("query")
 
     const data = {
-        "SPOONACULAR_API_KEY": "8caf40bd938d42a3a4a4042be2b8d397",
+        "SPOONACULAR_API_KEY": "4657697774ac42dcbe50bf95b6c4fa02",
+        "EDANAM_APIKEY":'f8690f05adb5358ce22d3f987d2129cb',
+        "EDANAM_APIID":'6a5c6662',
+
     }
     const homeComponent = <Home banner={props.banner} bg1={props.bg1}/>;
     const ResultComponent = <Results query={query} data={data}/>;
 
-
-
     return (
         <div className="publicContent">
-            <Header Appname="Foodyy" logo={props.logo} signInMethods={props.signInMethods}/>
+            <Header Appname="Foodyy" logo={props.logo} query={query} signInMethods={props.signInMethods}/>
             <Routes>
                 <Route path="/item-details/:id" element={<Details/>}/>
                 <Route/>

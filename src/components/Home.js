@@ -18,7 +18,7 @@ function Home(props) {
                         <div className="col-md-6">
                             <div className="form"><i className="fa fa-microphone"></i>
                                 <input value={input} type="text" onInput={e => setInput(e.target.value)} className="form-control form-input"
-                                       placeholder="Search food, recipe ..."/>
+                                       placeholder="Search by food item..."/>
                                 <Link to={`/search?query=${input}`}><span className="left-pan"><i
                                     className="fa fa-search"></i></span>
                                 </Link>

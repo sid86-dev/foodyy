@@ -1,105 +1,27 @@
-import React from "react";
-import {Component} from "react";
+import React,{useEffect, useState} from "react";
 import ResultItem from "./ResultItem";
+import Axios from 'axios';
 
+function Results(props) {
 
-class App extends Component {
+        const [recipes, setRecipes ] = useState([]);
+        const [dataisLoaded, setDataisLoaded ] = useState(false);
 
-    // Constructor
-    constructor(props) {
+        let api_key = props.data.EDANAM_APIKEY;
+        let api_id = props.data.EDANAM_APIID;
 
-        super(props);
+        const url = `https://api.edamam.com/search?q=${props.query}&app_id=${api_id}&app_key=${api_key}`
 
-        this.state = {
-            items: [],
-            DataisLoaded: false
-        };
-    }
+        useEffect(()=>{
+            const getData = async ()=>{
+                const res =  await Axios.get(url);
+                setRecipes(res.data.hits);
+                setDataisLoaded(true);
+            };
+            getData();
+        },[]);
 
-
-    // ComponentDidMount is used to
-    // execute the code
-
-    componentDidMount() {
-
-        let query = this.props.query;
-        const queryNumber = 10;
-        let url_filter = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
-        const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
-        fetch(
-            url_filter)
-            .then((res) => res.json())
-            .then((json) => {
-                this.setState({
-                    items: json,
-                    DataisLoaded: true
-
-                });
-            }).catch(err => {
-            console.error(err);
-        });
-
-        const searchbyCategory = (query) => {
-            const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
-            fetch(
-                url)
-                .then((res) => res.json())
-                .then((json) => {
-                    this.setState({
-                        items: json,
-                        DataisLoaded: true
-
-                    });
-                }).catch(err => {
-                console.error(err);
-            });
-
-        }
-
-
-    }
-
-    componentDidUpdate() {
-
-        let query = this.props.query;
-        const queryNumber = 10;
-        let url_filter = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
-        const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${this.props.data.SPOONACULAR_API_KEY}&query=${query}&number=${queryNumber}`;
-        fetch(
-            url_filter)
-            .then((res) => res.json())
-            .then((json) => {
-                this.setState({
-                    items: json,
-                    DataisLoaded: true
-
-                });
-            })
-
-
-        const searchbyCategory = (query) => {
-            const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
-            fetch(
-                url)
-                .then((res) => res.json())
-                .then((json) => {
-                    this.setState({
-                        items: json,
-                        DataisLoaded: true
-
-                    });
-                }).catch(err => {
-                console.error(err);
-            });
-
-        }
-    };
-
-    render() {
-
-
-        const {DataisLoaded, items} = this.state;
-        if (!DataisLoaded) return <div className="d-flex justify-content-center " style={{height:"80vh"}}>
+        if (!dataisLoaded) return <div className="d-flex justify-content-center " style={{height:"80vh"}}>
             <div className="loader my-auto">
                 <div className="loader-wheel"></div>
                 <div className="loader-text"></div>
@@ -198,7 +120,8 @@ class App extends Component {
                     </div>
                     <div className="row my-3 ">
                         <div className="col-md-6">
-                            <p className="search-results-count">About {items.meals != null?items.meals.length : 0} results</p></div>
+                            {/*<p className="search-results-count">About {items.totalResults} results</p>*/}
+                        </div>
                         <div className="col-md-6">
                             <button className="btn btn-dark " style={{float: 'right'}} type="button"
                                     data-bs-toggle="offcanvas"
@@ -210,9 +133,9 @@ class App extends Component {
                     <div className="container">
                         <div className="card-group vgr-cards">
                             {
-                                items.meals != null?
-                                items.meals.map((item) => (
-                                    <ResultItem key={item.idMeal} item={item}/>
+                                recipes.results !== [] ?
+                                    recipes.map((item) => (
+                                    <ResultItem key={item.recipe.uri} item={item}/>
                                 )):
 
                                     <h1 className="my-5 mx-auto" style={{height:'36vh'}}>No result found</h1>
@@ -224,7 +147,7 @@ class App extends Component {
             </div>
 
         );
-    }
-}
 
-export default App;
+};
+
+export default Results;

@@ -36,14 +36,15 @@ function Header(props) {
                                 <div className="d-flex form-inputs">
                                     <div className="input-group">
 
-                                        <input className="form-control" value={input} type="text"
+                                        <input className="form-control" id="searchQuery" value={input} type="text"
                                                onInput={e => setInput(e.target.value)} type="text"
-                                               placeholder="Search "/>
+                                               placeholder={props.query!=null?props.query:'Search'}/>
                                         <div className="input-group-text" id="navSearch" area-hidden='true'>
 
-                                            <Link to={`/search?query=${input}`}>
-                                                <span>{searchIcon}</span>
-                                            </Link></div>
+                                            <Link to={`/search?query=${input}` }>
+                                            <span>{searchIcon}</span>
+                                            </Link>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
