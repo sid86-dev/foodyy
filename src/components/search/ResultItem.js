@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import uuid from 'react-uuid'
 
+
 function ResultItem(props) {
     var recipe = props.item.recipe;
     let trimString = function (string, length) {

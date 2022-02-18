@@ -47,7 +47,7 @@ function Header(props) {
                                         <div className="input-group-text" id="navSearch" area-hidden='true'>
 
 
-                                            <Link to={`/search?query=${input}`} state={{from:input}}>
+                                            <Link to={`/search?query=${input}&from=0&to=10`} state={{from:input}}>
                                             <span>{searchIcon}</span>
                                             </Link>
                                     </div>
