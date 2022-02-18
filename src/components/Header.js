@@ -5,6 +5,7 @@ import {
 
 
 function Header(props) {
+    const [value, setValue] = useState('');
     const [input, setInput] = useState(''); // '' is the initial state value
     const moonIcon = <i className="fa-solid fa-moon"></i>
     const searchIcon = <svg style={{color: 'black'}}
@@ -19,6 +20,10 @@ function Header(props) {
     const signInWithGoogle = props.signInMethods.google;
     const signInWithFacebook = props.signInMethods.facebook;
 
+    const handleSubmit = () => {
+        setValue({});
+    }
+
     return (
         <>
             <header className="section-header fixed-top">
@@ -32,22 +37,25 @@ function Header(props) {
                                      src={props.logo} width="130"/> </Link>
                             </div>
 
-                            <div className="col-md-6 mx-auto">
+                            <form className="col-md-6 mx-auto">
                                 <div className="d-flex form-inputs">
                                     <div className="input-group">
 
                                         <input className="form-control" id="searchQuery" value={input} type="text"
                                                onInput={e => setInput(e.target.value)} type="text"
-                                               placeholder={props.query!=null?props.query:'Search'}/>
+                                               placeholder={'Search'}/>
                                         <div className="input-group-text" id="navSearch" area-hidden='true'>
 
-                                            <Link to={`/search?query=${input}` }>
+
+                                            <Link to={`/search?query=${input}`} state={{from:input}}>
                                             <span>{searchIcon}</span>
                                             </Link>
                                     </div>
                                     </div>
+
                                 </div>
-                            </div>
+                            </form>
+
                             <div className="col-md-2">
                                 <div className="d-flex d-none d-md-flex flex-row justify-content-end">
                                     <a href='/login' data-bs-toggle="modal"

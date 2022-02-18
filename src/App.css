@@ -1,302 +1,317 @@
-body, html{
-  margin: 0px;
-  padding: 0px;
-  font-family: 'Poppins', sans-serif;
+body, html {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Poppins', sans-serif;
 }
+
 .publicContent {
-  padding-top: 140px;
+    padding-top: 140px;
 }
 
-#index-banner{
-  height: 26rem;
-  background-repeat: no-repeat;
-  /*background-attachment: fixed;*/
-  background-size: cover;
+#index-banner {
+    height: 26rem;
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-size: cover;
 
-  /* Flexbox */
-  display: flex;
-  align-items: center;
+    /* Flexbox */
+    display: flex;
+    align-items: center;
 }
+
 /*search box*/
 .height {
-  height: 100vh
+    height: 100vh
 }
 
 .form {
-  position: relative
+    position: relative
 }
 
 .form .fa-microphone {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  color: #9ca3af
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #9ca3af
 }
 
 .form span {
-  position: absolute;
-  right: 17px;
-  top: 13px;
-  padding: 2px;
-  border-left: 1px solid #d1d5db
+    position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db
 }
 
 .left-pan {
-  padding-left: 7px
+    padding-left: 7px
 }
 
 .left-pan i {
-  padding-left: 10px
+    padding-left: 10px
 }
 
 .form-input {
-  height: 55px;
-  text-indent: 33px;
-  border-radius: 10px
+    height: 55px;
+    text-indent: 33px;
+    border-radius: 10px
 }
 
 .form-input:focus {
-  box-shadow: none;
-  border: none
+    box-shadow: none;
+    border: none
 }
 
 /*nav*/
 .form-inputs {
-  position: relative
+    position: relative
 }
 
 .form-inputs .form-control {
-  height: 45px
+    height: 45px
 }
 
 .form-inputs .form-control:focus {
-  box-shadow: none;
-  border: 1px solid #000
+    box-shadow: none;
+    border: 1px solid #000
 }
 
 .form-inputs i {
-  position: absolute;
-  right: 10px;
-  top: 15px
+    position: absolute;
+    right: 10px;
+    top: 15px
 }
 
 .shop-bag {
-  background-color: #000;
-  color: #fff;
-  height: 50px;
-  width: 50px;
-  font-size: 25px;
-  display: flex;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center
+    background-color: #000;
+    color: #fff;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center
 }
 
 .qty {
-  font-size: 12px
+    font-size: 12px
 }
 
-#profile-pic{
-  width: 40px;
-  border-radius: 100px;
+#profile-pic {
+    width: 40px;
+    border-radius: 100px;
 }
 
-.category-card{
-  background-repeat: no-repeat;
-  background-size: cover;
+.category-card {
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.cardText{
-  font-size: 2.5rem;
-  text-align: center;
-  height:10vh;
-  /*line-height: 10vh;*/
-  color: #fcedd8;
-  font-family: 'Niconne', cursive;
-  font-weight: 700;
-  text-shadow: 5px 5px 0px #eb452b,
-  5px 1px 0px #efa032,
-  7px 7px 0px #46b59b,
-  9px 9px 0px #017e7f,
-  11px 11px 0px #052939,
-  13px 13px 0px #c11a2b,
-  10px 10px 0px #c11a2b,
-  10px 10px 0px #c11a2b,
-  10px 10px 0px #c11a2b;
+.cardText {
+    font-size: 2.5rem;
+    text-align: center;
+    height: 10vh;
+    /*line-height: 10vh;*/
+    color: #fcedd8;
+    font-family: 'Niconne', cursive;
+    font-weight: 700;
+    text-shadow: 5px 5px 0px #eb452b,
+    5px 1px 0px #efa032,
+    7px 7px 0px #46b59b,
+    9px 9px 0px #017e7f,
+    11px 11px 0px #052939,
+    13px 13px 0px #c11a2b,
+    10px 10px 0px #c11a2b,
+    10px 10px 0px #c11a2b,
+    10px 10px 0px #c11a2b;
 }
 
 .card {
-  padding: 20px;
-  border: none;
-  border-radius: 20px 20px 20px 20px;
+    padding: 20px;
+    border: none;
+    /*border-radius: 20px 20px 20px 20px;*/
 }
 
+
 .card-img {
-  border-radius: 0;
+    border-radius: 0;
 }
 
 .vgr-cards .card {
-  display: flex;
-  flex-flow: wrap;
-  flex: 100%;
-  margin-bottom: 40px;
+    display: flex;
+    flex-flow: wrap;
+    flex: 100%;
+    margin-bottom: 40px;
 }
+
 .vgr-cards .card:nth-child(even) .card-img-body {
-  order: 2;
+    order: 2;
 }
+
 .vgr-cards .card:nth-child(even) .card-body {
-  padding-left: 0;
-  padding-right: 1.25rem;
+    padding-left: 0;
+    padding-right: 1.25rem;
 }
+
 @media (max-width: 576px) {
-  .vgr-cards .card {
-    display: block;
-  }
+    .vgr-cards .card {
+        display: block;
+    }
 }
+
 .vgr-cards .card-img-body {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
 }
+
 @media (max-width: 576px) {
-  .vgr-cards .card-img-body {
-    width: 100%;
-    height: 200px;
-    margin-bottom: 20px;
-  }
+    .vgr-cards .card-img-body {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+    }
 }
+
 .vgr-cards .card-img {
-  width: 100%;
-  height: auto;
-  position: absolute;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}
-@media (max-width: 1140px) {
-  .vgr-cards .card-img {
-    margin: 0;
-    transform: none;
     width: 100%;
     height: auto;
-  }
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
+
+@media (max-width: 1140px) {
+    .vgr-cards .card-img {
+        margin: 0;
+        transform: none;
+        width: 100%;
+        height: auto;
+    }
+}
+
 .vgr-cards .card-body {
-  flex: 2;
-  padding: 0 0 0 1.25rem;
+    flex: 2;
+    padding: 0 0 0 1.25rem;
 }
+
 @media (max-width: 576px) {
-  .vgr-cards .card-body {
-    padding: 0;
-  }
+    .vgr-cards .card-body {
+        padding: 0;
+    }
 }
+
 /*button*/
 .btn-login {
-  border-radius: 30px;
-  font-size: 0.9rem;
-  letter-spacing: 0.05rem;
-  padding: 0.75rem 1rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
 }
 
 .btn-google {
-  border-radius: 30px;
-  color: white !important;
-  background-color: #ea4335;
+    border-radius: 30px;
+    color: white !important;
+    background-color: #ea4335;
 }
 
 .btn-facebook {
-  border-radius: 30px;
-  color: white !important;
-  background-color: #3b5998;
+    border-radius: 30px;
+    color: white !important;
+    background-color: #3b5998;
 }
 
 .toast {
-  transition: 0.32s all ease-in-out
+    transition: 0.32s all ease-in-out
 }
 
 .toast-container--fade {
-  right: 0;
-  bottom: 0
+    right: 0;
+    bottom: 0
 }
 
 .toast-container--fade .toast-wrapper {
-  display: inline-block
+    display: inline-block
 }
 
 .toast.fade-init {
-  opacity: 0
+    opacity: 0
 }
 
 .toast.fade-show {
-  opacity: 1
+    opacity: 1
 }
 
 .toast.fade-hide {
-  opacity: 0
-}
-.custom-btn {
-  margin-right: 0.5rem !important
+    opacity: 0
 }
 
 .custom-btn {
-  background-color: #F4902D;
-  font-size: 1rem;
-  line-height: 1;
-  font-weight: 400;
-  padding: .6rem 1rem;
-  border-radius: 7px
+    margin-right: 0.5rem !important
 }
+
+.custom-btn {
+    background-color: #F4902D;
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 400;
+    padding: .6rem 1rem;
+    border-radius: 7px
+}
+
 /*loader*/
 .loader {
-  width: 60px;
+    width: 60px;
 }
 
 .loader-wheel {
-  animation: spin 1s infinite linear;
-  border: 2px solid rgba(30, 30, 30, 0.5);
-  border-left: 4px solid #fff;
-  border-radius: 50%;
-  height: 50px;
-  margin-bottom: 10px;
-  width: 50px;
+    animation: spin 1s infinite linear;
+    border: 2px solid rgba(30, 30, 30, 0.5);
+    border-left: 4px solid #fff;
+    border-radius: 50%;
+    height: 50px;
+    margin-bottom: 10px;
+    width: 50px;
 }
 
 .loader-text {
-  color: #fff;
-  font-family: arial, sans-serif;
+    color: #fff;
+    font-family: arial, sans-serif;
 }
 
 .loader-text:after {
-  content: 'Loading';
-  animation: load 2s linear infinite;
+    content: 'Loading';
+    animation: load 2s linear infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes load {
-  0% {
-    content: 'Loading';
-  }
-  33% {
-    content: 'Loading.';
-  }
-  67% {
-    content: 'Loading..';
-  }
-  100% {
-    content: 'Loading...';
-  }
+    0% {
+        content: 'Loading';
+    }
+    33% {
+        content: 'Loading.';
+    }
+    67% {
+        content: 'Loading..';
+    }
+    100% {
+        content: 'Loading...';
+    }
 }
 
 .card-img-left {
-  width: 45%;
-  /* Link to your background image using in the property below! */
-  background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
-  background-size: cover;
+    width: 45%;
+    /* Link to your background image using in the property below! */
+    background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+    background-size: cover;
 }
