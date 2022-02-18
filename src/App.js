@@ -1,14 +1,17 @@
 import banner from './assets/bg/bg3.jpg';
 import bg1 from './assets/bg/bg4.jpg';
 import logo from "./assets/foodyy-logo.png"
-import './App.css';
 import {useState} from "react";
 import Public from './components/Public.js'
 import {useLocation} from 'react-router-dom'
-import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
 import authentication from "./config/forebase-config";
 import {signInWithPopup, GoogleAuthProvider, FacebookAuthProvider} from "firebase/auth";
-import axios from 'axios-react'
+// css
+import 'bootstrap/dist/css/bootstrap.css'
+import './App.css';
+// js
+import 'bootstrap/dist/js/bootstrap'
 
 function App() {
     const [userData, setUserdata] = useState('')
@@ -57,9 +60,9 @@ function App() {
     const signInMethods = {'google': signInWithGoogle, 'facebook': signInWithFacebook}
 
     let location = useLocation();
-    if (location.pathname.match(/login/)) {
+    if (location.pathname.match(/signup/)) {
         return (
-            <Login/>
+            <Signup  logo={ logo}/>
         );
     }
     return (

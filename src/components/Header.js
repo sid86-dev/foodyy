@@ -96,6 +96,7 @@ function Header(props) {
                                     </ul>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </nav>
@@ -111,7 +112,7 @@ function Header(props) {
                             <div className="card border-0 shadow rounded-3 ">
                                 <button type="button" className="btn-close ms-auto" data-bs-dismiss="modal"
                                         aria-label="Close" id="loginclose"/>
-                                <div className="card-body p-4 p-sm-5">
+                                <div className="card-body p-2 p-sm-5">
 
                                     <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
                                     <div>
@@ -126,18 +127,14 @@ function Header(props) {
                                             <label htmlFor="floatingPassword">Password</label>
                                         </div>
 
-                                        <div className="form-check mb-3">
-                                            <input className="form-check-input" type="checkbox" value=""
-                                                   id="rememberPasswordCheck"/>
-                                            <label className="form-check-label" htmlFor="rememberPasswordCheck">
-                                                Remember password
-                                            </label>
-                                        </div>
+
                                         <div className="d-grid">
-                                            <button className="btn btn-primary btn-login text-uppercase fw-bold"
+                                            <button className="btn btn-primary btn-login text-uppercase fw-bold mt-2"
                                                     type="submit">Sign
                                                 in
                                             </button>
+                                            <a className="d-block text-center mt-2 small text-dark" href="/signup">Don't have account? Sign Up</a>
+
                                         </div>
                                         <hr className="my-4"/>
                                         <div className="d-grid mb-2">
@@ -154,7 +151,6 @@ function Header(props) {
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

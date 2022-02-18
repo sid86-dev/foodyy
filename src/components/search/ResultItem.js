@@ -7,11 +7,7 @@ import uuid from 'react-uuid'
 
 function ResultItem(props) {
     var recipe = props.item.recipe;
-    let trimString = function (string, length) {
-        return string.length > length ?
-            string.substring(0, length) + '...' :
-            string;
-    };
+
     return (
 
         <div className="card my-4 shadow-sm bg-white rounded">

@@ -4,6 +4,7 @@ import uuid from 'react-uuid'
 
 
 function Details(props) {
+    window.scrollTo(0, 0)
     const location = useLocation()
     const {from} = location.state
     const recipe = from;

@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import ResultItem from "./ResultItem";
-import {Link, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import useRecipes from "./useRecipes";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import uuid from "react-uuid";
 
 function Results(props) {
 
@@ -13,7 +12,7 @@ function Results(props) {
     const query = searchParams.get("query");
     const from = parseInt(searchParams.get('from'));
     const to = parseInt(searchParams.get('to'));
-    const res = useRecipes(query != '' ? query : '', from, to);
+    const res = useRecipes(query !== '' ? query : '', from, to);
     const [pagination, setPagination] = useState({'from': from, 'to': to})
 
     const handlePaginaiton = () => {
@@ -86,7 +85,7 @@ function Results(props) {
                                         aria-label="Close"/>
                             </div>
                             <div className="offcanvas-body">
-                                <form className="row">
+                                <div className="row">
                                     <div className="col-md-12">
                                         <label htmlFor="diet" className="form-label">Diet</label>
                                         <select id="inputState" className="form-select">
@@ -162,7 +161,7 @@ function Results(props) {
                                         </div>
                                         <button type="submit" className="btn btn-dark my-3">Save Filter</button>
                                     </div>
-                                </form>
+                                </div>
 
                             </div>
                         </div>
