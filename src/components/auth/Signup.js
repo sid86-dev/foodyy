@@ -13,8 +13,7 @@ const Signup = ( {logo}) => {
             const signupUrlLocal = "http://127.0.0.1:5000/auth/v1/signup"
             let submitBtn = document.getElementById('submitBtn');
             setIsDisabled(true);
-            // submitBtn.disabled = 'true';
-            fetch(signupUrlLocal, {
+            fetch(signupUrlProd, {
                 method: "POST",
                 body: JSON.stringify(values),
                 cache: "no-cache",
