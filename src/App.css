@@ -127,6 +127,15 @@ body, html {
     10px 10px 0px #c11a2b;
 }
 
+.hide{
+    display: none;
+}
+
+.block{
+    transition: ease-in;
+    display: block;
+}
+
 .card {
     padding: 20px;
     border: none;
