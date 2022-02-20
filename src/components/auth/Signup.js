@@ -36,10 +36,11 @@ const Signup = ( {logo}) => {
                             }, 2000);
                         }
                         else if(data.status === 'failed'){
-                            console.log(data);
+                            setIsDisabled(false);
+                            setError('Sorry something went wrong')
                         }
                         else{
-                            setError(data.status);
+                            setError('Sorry something went wrong')
                             setIsDisabled(false);
                         }
                     })

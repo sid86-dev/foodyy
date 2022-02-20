@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Link
 } from "react-router-dom";
+import Axios from "axios";
 
 
 function Header(props) {
+    const [profile, setProfile] = useState({'link':'/','picUrl':"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"})
+    const [userData, setUserData] = useState(null);
     const [value, setValue] = useState('');
     const [input, setInput] = useState(''); // '' is the initial state value
-    const moonIcon = <i className="fa-solid fa-moon"></i>
     const searchIcon = <svg style={{color: 'black'}}
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             className="bi bi-search" viewBox="0 0 16 16">
@@ -15,14 +17,31 @@ function Header(props) {
             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
     </svg>
 
+    useEffect(()=>{
+        let token = localStorage.getItem('token');
+
+        const dataUrlProd = `https://food-yy.herokuapp.com/user/me/${token}`
+        const dataUrlLocal = `http://127.0.0.1:5000/user/me/${token}`
+
+        if (token !== null){
+            Axios.get(dataUrlProd).then(res=>{
+                setUserData(res.data);
+                if(res.data.profilePic != null){
+                    setProfile({'link':'/profile','picUrl':res.data.profilePic});
+                }
+            })
+        }
+    },[]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setUserData(null)
+        setProfile({'link':'/','picUrl':"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"})
+    }
 
 
     const signInWithGoogle = props.signInMethods.google;
     const signInWithFacebook = props.signInMethods.facebook;
-
-    const handleSubmit = () => {
-        setValue({});
-    }
 
     return (
         <>
@@ -58,12 +77,17 @@ function Header(props) {
 
                             <div className="col-md-2">
                                 <div className="d-flex d-none d-md-flex flex-row justify-content-end">
-                                    <a href='/login' data-bs-toggle="modal"
-                                       data-bs-target="#staticBackdrop">
-                                    <img
-                                        src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
-                                        id="profile-pic"/>
-                                    </a>
+                                    {profile.link === '/'? <a data-bs-toggle='modal'
+                                                              data-bs-target='#staticBackdrop' style={{cursor:'pointer'}}>
+                                        <img
+                                            src={profile.picUrl}
+                                            id="profile-pic"/>
+                                    </a> : <Link to={profile.link} state={{from:userData}}>
+                                        <img
+                                            src={profile.picUrl}
+                                            id="profile-pic"/>
+                                    </Link> }
+
                                 </div>
                             </div>
                         </div>
@@ -90,8 +114,12 @@ function Header(props) {
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a className="dropdown-item" href="#">Settings</a></li>
                                         <li><a className="dropdown-item" href="#">Refer</a></li>
-                                        <li><a className="dropdown-item" href="/login" data-bs-toggle="modal"
-                                               data-bs-target="#staticBackdrop">Login</a></li>
+                                        <li>
+                                            {profile.link === '/' ?
+                                            <a className="dropdown-item" style={{cursor:'pointer'}} data-bs-toggle="modal"
+                                               data-bs-target="#staticBackdrop">Login</a>:
+                                                <a className="dropdown-item" style={{cursor:'pointer'}} onClick={handleLogout}>Logout</a>
+                                            }</li>
 
                                     </ul>
                                 </li>
@@ -115,6 +143,7 @@ function Header(props) {
                                 <div className="card-body p-2 p-sm-5">
 
                                     <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
+                                    <p className="d-block text-center mt-2 small text-danger" >{props.error}</p>
                                     <div>
                                         <div className="form-floating mb-3">
                                             <input type="email" className="form-control" id="floatingInput"
@@ -130,7 +159,7 @@ function Header(props) {
 
                                         <div className="d-grid">
                                             <button className="btn btn-primary btn-login text-uppercase fw-bold mt-2"
-                                                    type="submit">Sign
+                                                    type="submit" disabled={props.isDisabled}>Sign
                                                 in
                                             </button>
                                             <a className="d-block text-center mt-2 small text-dark" href="/signup">Don't have account? Sign Up</a>
@@ -139,14 +168,14 @@ function Header(props) {
                                         <hr className="my-4"/>
                                         <div className="d-grid mb-2">
                                             <button className="btn btn-google btn-login text-uppercase fw-bold"
-                                                     onClick={signInWithGoogle}>
+                                                     onClick={signInWithGoogle} disabled={props.isDisabled}>
                                                 <i className="fab fa-google me-2"></i> Sign in with Google
                                             </button>
                                         </div>
                                         <div className="d-grid">
                                             <button
                                                 className="btn btn-facebook btn-login text-uppercase fw-bold"
-                                                onClick={signInWithFacebook}>
+                                                onClick={signInWithFacebook} disabled={props.isDisabled}>
                                                 <i className="fab fa-facebook-f me-2"></i> Sign in with Facebook
                                             </button>
                                         </div>

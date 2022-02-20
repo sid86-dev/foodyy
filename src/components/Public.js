@@ -2,6 +2,7 @@ import React from 'react';
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
+import Profile from "./user/Profile";
 import ResultPage from "./search/ResultPage";
 import {
     Route,
@@ -21,8 +22,10 @@ function Public(props) {
     return (
         <QueryClientProvider client={queryClient}>
         <div className="publicContent">
-            <Header Appname="Foodyy" logo={props.logo}  signInMethods={props.signInMethods}/>
+            <Header Appname="Foodyy" logo={props.logo} isDisabled={props.isDisabled} error={props.error}  signInMethods={props.signInMethods}/>
             <Routes>
+                <Route path="/profile" element={<Profile/>}/>
+                <Route/>
                 <Route path="/item-details/:id" element={<Details/>}/>
                 <Route/>
                 <Route path="/" element={homeComponent}></Route>

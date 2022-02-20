@@ -6,7 +6,7 @@ import uuid from 'react-uuid'
 
 
 function ResultItem(props) {
-    var recipe = props.item.recipe;
+    const recipe = props.item.recipe;
 
     return (
 

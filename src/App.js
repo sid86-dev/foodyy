@@ -14,27 +14,46 @@ import './App.css';
 import 'bootstrap/dist/js/bootstrap'
 
 function App() {
-    const [userData, setUserdata] = useState('')
+    const [error, setError] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
 
-    const loginUrl = "https://food-yy.herokuapp.com/auth/v1/login"
+    const loginUrlProd = "https://food-yy.herokuapp.com/auth/v1/login"
+    const loginUrlLocal = "http://127.0.0.1:5000/auth/v1/login"
 
     let handleLogin = (loginData) => {
+        setError('')
         const data = loginData._tokenResponse
-        fetch(loginUrl, {
+        setIsDisabled(true);
+        fetch(loginUrlProd, {
             method: "POST",
             body: JSON.stringify(data),
             cache: "no-cache",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }})
-            .then(function (response){
-                if (response.status !== 200){
+            }
+        })
+            .then(function (response) {
+                if (response.status !== 200) {
                     console.log("Response Status was not 200");
-                    return ;
+                    return;
                 }
+
                 response.json().then(function (data) {
-                    console.log(data);
+                    if (data.status === 'success') {
+                        localStorage.removeItem('token');
+                        localStorage.setItem('token', data.token);
+                        window.location.replace('/');
+                    }
+                    else if(data.status === 'User not found'){
+                        setError(data.status);
+                        setIsDisabled(false);
+                    }
+                    else{
+                        setError('Something went wrong');
+                        setIsDisabled(false);
+                    }
+
                 })
             })
     };
@@ -62,12 +81,12 @@ function App() {
     let location = useLocation();
     if (location.pathname.match(/signup/)) {
         return (
-            <Signup  logo={ logo}/>
+            <Signup logo={logo}/>
         );
     }
     return (
         <div className="App">
-            <Public banner={banner} bg1={bg1} logo={logo} signInMethods={signInMethods}/>
+            <Public banner={banner} bg1={bg1} logo={logo} isDisabled={isDisabled} error={error} signInMethods={signInMethods}/>
         </div>
     );
 }
