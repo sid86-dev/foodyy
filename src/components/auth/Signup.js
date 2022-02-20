@@ -9,11 +9,11 @@ const Signup = ( {logo}) => {
     const [error, setError] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
     const postSignup = (values) => {
-            const signupUrlProd = "https://food-yy.herokuapp.com/auth/v1/signup"
-            const signupUrlLocal = "http://127.0.0.1:5000/auth/v1/signup"
-            let submitBtn = document.getElementById('submitBtn');
+            const signupUrl = "https://food-yy.herokuapp.com/auth/v1/signup"
+            // const signupUrl = "http://127.0.0.1:5000/auth/v1/signup"
+            setError('');
             setIsDisabled(true);
-            fetch(signupUrlProd, {
+            fetch(signupUrl, {
                 method: "POST",
                 body: JSON.stringify(values),
                 cache: "no-cache",
@@ -40,7 +40,7 @@ const Signup = ( {logo}) => {
                             setError('Sorry something went wrong')
                         }
                         else{
-                            setError('Sorry something went wrong')
+                            setError(data.status)
                             setIsDisabled(false);
                         }
                     })

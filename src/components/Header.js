@@ -6,9 +6,12 @@ import Axios from "axios";
 
 
 function Header(props) {
-    const [profile, setProfile] = useState({'link':'/','picUrl':"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"})
+    const [error, setError] = useState('');
+    const defaultUser = "https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
+    const [profile, setProfile] = useState({'logged':false,'link':'/','picUrl': defaultUser})
+    const [emailInput, setEmailInput] = useState('')
+    const [passInput, setPassInput] = useState('')
     const [userData, setUserData] = useState(null);
-    const [value, setValue] = useState('');
     const [input, setInput] = useState(''); // '' is the initial state value
     const searchIcon = <svg style={{color: 'black'}}
                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -20,25 +23,66 @@ function Header(props) {
     useEffect(()=>{
         let token = localStorage.getItem('token');
 
-        const dataUrlProd = `https://food-yy.herokuapp.com/user/me/${token}`
-        const dataUrlLocal = `http://127.0.0.1:5000/user/me/${token}`
+        const dataUrl = `https://food-yy.herokuapp.com/user/me/${token}`
+        // const dataUrl = `http://127.0.0.1:5000/user/me/${token}`
+
 
         if (token !== null){
-            Axios.get(dataUrlProd).then(res=>{
+            Axios.get(dataUrl).then(res=>{
                 setUserData(res.data);
-                if(res.data.profilePic != null){
-                    setProfile({'link':'/profile','picUrl':res.data.profilePic});
-                }
+                setProfile({'logged':true,'link':'/profile','picUrl':res.data.profilePic});
             })
         }
     },[]);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        setUserData(null)
-        setProfile({'link':'/','picUrl':"https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"})
+        setUserData(null);
+        setProfile({'logged':false,'link':'/','picUrl':defaultUser})
+        window.location.replace('/');
     }
 
+    const loginUrl = 'https://food-yy.herokuapp.com/auth/v1/login'
+    // const loginUrl = 'http://127.0.0.1:5000/auth/v1/login';
+
+    const handleLogin = ()=>{
+        setError('')
+        const data = {'email':emailInput, 'password':passInput}
+        fetch(loginUrl, {
+            method: "POST",
+            body: JSON.stringify(data),
+            cache: "no-cache",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log("Response Status was not 200");
+                    return;
+                }
+
+                response.json().then(function (data) {
+                    if (data.status === 'success') {
+                        localStorage.removeItem('token');
+                        localStorage.setItem('token', data.token);
+                        window.location.replace('/');
+                    }
+                    else if(data.status === 'User not found'){
+                        setError(data.status);
+                    }
+                    else if(data.status === 'Email or Password does not match'){
+                        setError(data.status);
+                    }
+                    else{
+                        setError('Something went wrong');
+                    }
+                }).catch(()=>{
+                    setError('Cannot connect');
+                })
+            })
+    };
 
     const signInWithGoogle = props.signInMethods.google;
     const signInWithFacebook = props.signInMethods.facebook;
@@ -77,7 +121,7 @@ function Header(props) {
 
                             <div className="col-md-2">
                                 <div className="d-flex d-none d-md-flex flex-row justify-content-end">
-                                    {profile.link === '/'? <a data-bs-toggle='modal'
+                                    {profile.logged === false? <a data-bs-toggle='modal'
                                                               data-bs-target='#staticBackdrop' style={{cursor:'pointer'}}>
                                         <img
                                             src={profile.picUrl}
@@ -112,10 +156,11 @@ function Header(props) {
                                                                      data-bs-toggle="dropdown"
                                                                      aria-expanded="false"> Account </a>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item" href="#">Settings</a></li>
+                                        <li><Link className="dropdown-item"state={{from:userData}} to={'/profile'}>Settings</Link></li>
+                                        <li><Link className="dropdown-item" state={{from:userData}} to={'/profile'}>Profile</Link></li>
                                         <li><a className="dropdown-item" href="#">Refer</a></li>
                                         <li>
-                                            {profile.link === '/' ?
+                                            {profile.logged === false?
                                             <a className="dropdown-item" style={{cursor:'pointer'}} data-bs-toggle="modal"
                                                data-bs-target="#staticBackdrop">Login</a>:
                                                 <a className="dropdown-item" style={{cursor:'pointer'}} onClick={handleLogout}>Logout</a>
@@ -144,22 +189,23 @@ function Header(props) {
 
                                     <h5 className="card-title text-center mb-5 fw-light fs-5">Sign In</h5>
                                     <p className="d-block text-center mt-2 small text-danger" >{props.error}</p>
+                                    <p className="d-block text-center mt-2 small text-danger" >{error}</p>
                                     <div>
                                         <div className="form-floating mb-3">
-                                            <input type="email" className="form-control" id="floatingInput"
-                                                   placeholder="name@example.com"/>
+                                            <input type="email" className="form-control" value={emailInput} id="floatingInput"
+                                                   placeholder="name@example.com" onInput={e => setEmailInput(e.target.value)} />
                                             <label htmlFor="floatingInput">Email address</label>
                                         </div>
                                         <div className="form-floating mb-3">
                                             <input type="password" className="form-control" id="floatingPassword"
-                                                   placeholder="Password"/>
+                                                   placeholder="Password" value={passInput} onInput={e => setPassInput(e.target.value)} />
                                             <label htmlFor="floatingPassword">Password</label>
                                         </div>
 
 
                                         <div className="d-grid">
                                             <button className="btn btn-primary btn-login text-uppercase fw-bold mt-2"
-                                                    type="submit" disabled={props.isDisabled}>Sign
+                                                    type="submit" disabled={props.isDisabled} onClick={handleLogin}>Sign
                                                 in
                                             </button>
                                             <a className="d-block text-center mt-2 small text-dark" href="/signup">Don't have account? Sign Up</a>

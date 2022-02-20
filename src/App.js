@@ -17,14 +17,14 @@ function App() {
     const [error, setError] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
 
-    const loginUrlProd = "https://food-yy.herokuapp.com/auth/v1/login"
-    const loginUrlLocal = "http://127.0.0.1:5000/auth/v1/login"
+    const loginUrl = "https://food-yy.herokuapp.com/auth/v1/socialLogin"
+    // const loginUrl = "http://127.0.0.1:5000/auth/v1/socialLogin"
 
     let handleLogin = (loginData) => {
         setError('')
         const data = loginData._tokenResponse
         setIsDisabled(true);
-        fetch(loginUrlProd, {
+        fetch(loginUrl, {
             method: "POST",
             body: JSON.stringify(data),
             cache: "no-cache",

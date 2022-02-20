@@ -8,8 +8,8 @@ function Profile(props) {
     const location = useLocation()
     const {from} = location.state
     const userData = from;
-    const deleteUrlProd = "https://food-yy.herokuapp.com/user/delete"
-    const deleteUrlLocal = "http://127.0.0.1:5000/user/delete"
+    const deleteUrl = "https://food-yy.herokuapp.com/user/delete"
+    // const deleteUrl = "http://127.0.0.1:5000/user/delete"
     const [input, setInput] = useState(''); // '' is the initial state value
     const [verify, setVerify] = useState(''); // '' is the initial state value
 
@@ -41,8 +41,7 @@ function Profile(props) {
         else{
             const token = localStorage.getItem('token')
             setError('')
-            const data = loginData._tokenResponse
-            fetch(deleteUrlProd, {
+            fetch(deleteUrl, {
                 method: "POST",
                 body: JSON.stringify(token),
                 cache: "no-cache",
@@ -115,7 +114,7 @@ function Profile(props) {
                                         <p><span>Plan </span>: {userData.plan}</p>
                                     </div>
                                     <div className="col-md-6 my-2">
-                                        <p><span>Subscribe </span>: {userData.subscription} </p>
+                                        <p><span>Subscribe </span>: {userData.subscription === true ? <button className="btn btn-success">Yes</button> : <button className="btn btn-danger">NO</button>} </p>
                                     </div>
                                 </div>
                             </div>
